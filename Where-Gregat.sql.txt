@@ -1,0 +1,69 @@
+// LIMIT
+SELECT * FROM `siswa` LIMIT 10;
+SELECT * FROM `siswa` LIMIT 16, 5;
+
+// WHERE
+SELECT * FROM `siswa`
+WHERE tempat_lahir = 'BANDUNG';
+SELECT * FROM `siswa`
+WHERE jenis_kelamin = 'P';
+SELECT * FROM `siswa`
+WHERE alamat = 'KALIJATI';
+
+// WHERE FUSION
+SELECT * FROM `siswa`
+WHERE alamat = 'KALIJATI' AND tempat_lahir = 'SUBANG'; //dan
+SELECT * FROM `siswa`
+WHERE alamat = 'KALIJATI' OR tempat_lahir = 'SUBANG'; //atau
+SELECT * FROM `siswa`
+WHERE nilai <=78; //nilai lebih kecil dari 78
+SELECT * FROM `siswa`
+WHERE tempat_lahir != 'SUBANG' AND nilai >=80; //tidak di subang, nilai lebih besar dari 80
+SELECT * FROM `siswa`
+WHERE tempat_lahir != 'SUBANG' AND nilai >=80 AND alamat = 'CIJAMBE'; //tidak di subang, nilai lebih besar dari 80, dan alamat cijambe
+SELECT * FROM `siswa`
+WHERE nilai BETWEEN 60 AND 80; //diantara
+SELECT * FROM `siswa` 
+WHERE nama LIKE 'A%'; //nyari yang huruf pertamanya A
+SELECT * FROM `siswa`
+WHERE nama LIKE '%i'; //nyari yang huruf belakangnya i
+SELECT * FROM `siswa`
+WHERE nama LIKE 'a%a'; //nyari huruf yang depan sama belakangnya A
+SELECT * FROM `siswa`
+WHERE nama LIKE '%o%'; //nyari yang ada huruf O nya
+SELECT * FROM siswa 
+WHERE MONTH(tanggal_lahir) = "09";
+SELECT * FROM siswa 
+WHERE YEAR(tanggal_lahir) = "2006";
+
+// ORDER BY+WHERE
+SELECT * FROM `siswa` ORDER BY nilai DESC; //terbesar
+SELECT * FROM `siswa` ORDER BY nilai ASC; //terkecil
+SELECT * FROM `siswa` 
+WHERE jenis_kelamin = 'L' ORDER BY nilai DESC;
+SELECT * FROM `siswa` 
+WHERE jenis_kelamin = 'L' AND tempat_lahir = 'SUBANG' ORDER BY nilai DESC;
+SELECT * FROM `siswa` 
+WHERE jenis_kelamin = 'P' AND nilai BETWEEN 50 AND 70 ORDER BY nilai DESC;
+
+//GROUP BY
+SELECT tempat_lahir FROM `siswa`
+GROUP BY tempat_lahir; //mengelompokkan tempat lahir
+SELECT tempat_lahir, COUNT(tempat_lahir) FROM `siswa`
+GROUP BY tempat_lahir; //mengelompokkan tempat lahir sama jumlahnya
+SELECT tempat_lahir, COUNT(tempat_lahir) AS jumlah_orang FROM `siswa`
+GROUP BY tempat_lahir; //mengelompokkan tempat lahir sama jumlahnya dan jumlah orang
+
+SELECT jenis_kelamin, 
+MAX(nilai) AS nilai_tertinggi,
+MIN(nilai) AS nilai_terendah
+FROM `siswa`
+GROUP BY jenis_kelamin;
+
+SELECT jenis_kelamin, 
+MAX(nilai) AS nilai_tertinggi,
+MIN(nilai) AS nilai_terendah,
+AVG(nilai) AS nilai_rerata,
+SUM(nilai) AS nilai_total
+FROM `siswa`
+GROUP BY jenis_kelamin;
